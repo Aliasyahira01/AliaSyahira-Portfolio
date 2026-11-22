@@ -161,16 +161,16 @@
 }
 
 /* Extra orb for the About section */
-.orb-3 {
+/* .orb-3 {
   width: 340px;
   height: 340px;
   top: 10%;
   left: -5%;
   background: radial-gradient(circle, rgba(184, 116, 58, 0.4), transparent 70%);
-}
+} */
 
 /* ---------- Scroll reveal ---------- */
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -180,7 +180,7 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
+} */
 
 /* ---------- Photo with glowing gradient ring ---------- */
 .photo-ring {
@@ -307,13 +307,13 @@
 }
 
 /* Orb for the Projects section */
-.orb-4 {
+/* .orb-4 {
   width: 360px;
   height: 360px;
   top: 15%;
   right: -4%;
   background: radial-gradient(circle, rgba(255, 157, 77, 0.35), transparent 70%);
-}
+} */
 
 /* ---------- Project logo images ---------- */
 .project-icon img {
@@ -422,13 +422,13 @@
 }
 
 /* Orb for the Experience section */
-.orb-5 {
+/* .orb-5 {
   width: 340px;
   height: 340px;
   bottom: 8%;
   left: -4%;
   background: radial-gradient(circle, rgba(184, 116, 58, 0.38), transparent 70%);
-}
+} */
 
 .exp-list li strong {
   color: #f1e2d0;
@@ -486,4 +486,97 @@ a.contact-card:hover {
 #form-btn:disabled {
   opacity: 0.6;
   cursor: wait;
+}
+
+/* ---------- Page ambience (static, no movement) ---------- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 600px at 100% 0%, rgba(255, 157, 77, 0.07), transparent 60%),
+    radial-gradient(800px 600px at 0% 100%, rgba(184, 116, 58, 0.08), transparent 60%);
+}
+
+/* Glowing divider line at the top of every section except the hero */
+section:not(#home)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 157, 77, 0.55), transparent);
+}
+
+/* Shared setup for the section backgrounds */
+.bg-about::before,
+.bg-projects::before,
+.bg-experience::before,
+.bg-contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* About: dot grid fading from the top-left */
+.bg-about::before {
+  background-image: radial-gradient(rgba(255, 157, 77, 0.2) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse at 0% 0%, #000 0%, transparent 65%);
+  mask-image: radial-gradient(ellipse at 0% 0%, #000 0%, transparent 65%);
+}
+
+/* Projects: blueprint grid with a glow at the top */
+.bg-projects::before {
+  background:
+    radial-gradient(700px 320px at 50% 0%, rgba(255, 157, 77, 0.14), transparent 70%),
+    linear-gradient(rgba(255, 157, 77, 0.05) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, rgba(255, 157, 77, 0.05) 1px, transparent 1px) 0 0 / 48px 48px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
+}
+
+/* Experience: fine diagonal lines */
+.bg-experience::before {
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 157, 77, 0.045) 0 1px,
+    transparent 1px 16px
+  );
+  -webkit-mask-image: radial-gradient(ellipse at 100% 50%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 100% 50%, #000 0%, transparent 70%);
+}
+
+/* Contact: big glow at the bottom plus dots */
+.bg-contact::before {
+  background:
+    radial-gradient(900px 380px at 50% 100%, rgba(255, 157, 77, 0.16), transparent 70%),
+    radial-gradient(rgba(255, 157, 77, 0.14) 1px, transparent 1px) 0 0 / 28px 28px;
+  -webkit-mask-image: linear-gradient(to top, #000 30%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 30%, transparent 100%);
+}
+
+/* ---------- Hero spotlight (follows the mouse) ---------- */
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    500px circle at var(--mx, 50%) var(--my, 40%),
+    rgba(255, 157, 77, 0.14),
+    transparent 60%
+  );
+}
+#home:hover .hero-spotlight {
+  opacity: 1;
+}
+@media (hover: none) {
+  .hero-spotlight { display: none; }
 }

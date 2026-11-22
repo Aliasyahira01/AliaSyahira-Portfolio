@@ -120,19 +120,33 @@ sections.forEach((section) => observer.observe(section));
 })();
 
 // ---------- Scroll reveal ----------
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
+// const revealObserver = new IntersectionObserver(
+//   (entries) => {
+//     entries.forEach((entry) => {
+//       if (entry.isIntersecting) {
+//         entry.target.classList.add('visible');
+//         revealObserver.unobserve(entry.target);
+//       }
+//     });
+//   },
+//   { threshold: 0.15 }
+// );
 
-document.querySelectorAll('.reveal').forEach((el, i) => {
-  el.style.transitionDelay = `${(i % 3) * 120}ms`;
-  revealObserver.observe(el);
-});
+// document.querySelectorAll('.reveal').forEach((el, i) => {
+//   el.style.transitionDelay = `${(i % 3) * 120}ms`;
+//   revealObserver.observe(el);
+// });
+
+// ---------- Hero spotlight (desktop only) ----------
+(function () {
+  const hero = document.getElementById('home');
+  const spot = hero && hero.querySelector('.hero-spotlight');
+  if (!spot) return;
+  if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+
+  hero.addEventListener('mousemove', (e) => {
+    const r = hero.getBoundingClientRect();
+    spot.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    spot.style.setProperty('--my', `${e.clientY - r.top}px`);
+  });
+})();
